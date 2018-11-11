@@ -1,0 +1,27 @@
+* {
+    background-color: gold;
+}
+header {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px;
+    text-align: center;
+    height: 200px;
+}
+
+.underscores {
+    font-size: 20px;
+    text-align: center;
+    height: 150px;
+}
+
+.correct {
+    font-size: 20px;
+    height: 50px;
+    margin-left: 50px;
+}
+
+.incorrect {
+    font-size: 20px;
+    height: 50px;
+    margin-left: 50px;
+}
