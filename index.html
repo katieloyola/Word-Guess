@@ -3,11 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Word Guess</title>
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <script type="text/javascript" src="assets/javascript/game.js"></script>
 </head>
 
 <body>
@@ -19,10 +18,12 @@
         <br>
         <h3>Try to guess what word I'm thinking of...</h3>
     </header>
-    <div class="underscores">_ _ _ _</div>
-    <br><br>
-    <div class="correct">Correct Guess: </div>
-    <div class="incorrect">Incorrect Guess: </div>
-</div>
-<script src="assets/javascript/game.js"></script>
+    <div id="underscore">_ _ _ _ _ _ _</div>
+    <br><br> 
+    <div id="wrongGuess">Incorrect Guesses: </div>
+    <div id="rightGuess">Correct Guesses: </div>
+    <div id="numGuess">Guesses Left: </div>
+    <div id=winCounter>Total Wins: </div>
+    <div id="lossCounter">Total Losses: </div>
+
 </html>

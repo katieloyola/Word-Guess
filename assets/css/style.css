@@ -8,19 +8,37 @@ header {
     height: 200px;
 }
 
-.underscores {
+#underscore {
     font-size: 20px;
     text-align: center;
     height: 150px;
 }
 
-.correct {
+#wrongGuess {
     font-size: 20px;
     height: 50px;
     margin-left: 50px;
 }
 
-.incorrect {
+#rightGuess {
+    font-size: 20px;
+    height: 50px;
+    margin-left: 50px;
+}
+
+#numGuess {
+    font-size: 20px;
+    height: 50px;
+    margin-left: 50px;
+}
+
+#winCounter {
+    font-size: 20px;
+    height: 50px;
+    margin-left: 50px;
+}
+
+#lossCounter {
     font-size: 20px;
     height: 50px;
     margin-left: 50px;
