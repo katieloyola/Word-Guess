@@ -1,19 +1,25 @@
 //My array
-var word = ["strawberries", "apple", "banana", "orange", "grapes", "kiwi", "watermelon"];
+var fruit = ["strawberries", "apple", "banana", "orange", "grapes", "kiwi", "watermelon"];
 
 //computer chooses word randomly
-var randNum = Math.floor(Math.random() * word.length);
-var choosenWord = word[randNum];
+var randNum = Math.floor(Math.random() * fruit.length);
+var choosenWord = fruit[randNum];
+//placeholder variables
+
+var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
 var rightWord = [];
 var wrongWord = [];
 var underScore = [];
 
+
 console.log(choosenWord);
 
-//Manipulate the DOM
+//Manipulating the DOM
 var docUnderScore = document.getElementById("underscore");
 var docRightGuess = document.getElementById("rightGuess");
 var docWrongGuess = document.getElementById("wrongGuess");
+
 
 //=============================================
 //create underscores based on length of word
@@ -25,9 +31,10 @@ var generateUnderscore = () => {
     }
     return underScore;
 }
-console.log(generateUnderscore());
+
+
 //capture users guess using an event
-document.addEventListener("keypress", (event) => {
+document.addEventListener("keypress", function (event) {
     //log letters pressed
     console.log(event);
     //replace underscores with correct letters pressed - W3 schools event keyCode
@@ -38,14 +45,17 @@ document.addEventListener("keypress", (event) => {
         //replace underscore with letter guessed
         underScore[choosenWord.indexOf(keyword)] = keyword;
         console.log(underScore);
+        docUnderScore.innerHTML = underScore.join(' ');
+        docRightGuess.innerHTML = rightWord;
         //log to see if correct letter is going in right guess array
         console.log(rightWord);
+        if (underScore.join("") == choosenWord) {
+            alert("You win!!");
         }
+    }
     else {
         wrongWord.push(keyword);
         //log to see if incorrect letter is going in wrong guess array
         console.log(wrongWord);
     }
-    
 });
-

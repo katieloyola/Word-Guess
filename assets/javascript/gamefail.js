@@ -1,5 +1,5 @@
 //My array
-var word = ["berries", "apple", "banana", "orange", "grapes"];
+var fruit = ["berries", "apple", "banana", "orange", "grapes"];
 
 //list of meaningful varaiables
 //Holds computers guess
@@ -21,9 +21,9 @@ var rightGuessCounter = 0;
 //the begin function
 function startGame() {
     //chooses word at random from array
-    computerGuess = word[Math.floor(Math.random() * word.length)];
+    computerGuess = fruit[Math.floor(Math.random() * fruit.length)];
     //splits the word into letters - W3 schools
-    lettersInWord = computerGuess.split('');
+    lettersInWord = computerGuess.split(' ');
     //populates number of blanks
     numBlanks = lettersInWord.length;
 
