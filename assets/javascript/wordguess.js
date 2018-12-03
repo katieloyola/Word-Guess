@@ -61,7 +61,11 @@ console.log(pickedWord);
     console.log(pickedWordPlaceholderArr)
     document.getElementById('placeholders').innerHTML = pickedWordPlaceholderArr.join(" "); 
     //write new game info to DOM
-    guessesLeft.textContent = guessesLeft;
+   // guessesLeft.textContent = guessesLeft;
+    document.getElementById('wins').innerHTML = "Total wins: " + wins;
+    document.getElementById('losses').innerHTML = "Total losses: " + losses;
+    document.getElementById('guesses-left').innerHTML = "Guesses remaining: " + guessesLeft;
+
     placeholders.textContent = pickedWordPlaceholderArr.join('');
     guessedLetters.textContent = incorrectLetterBank;
 }
@@ -73,8 +77,8 @@ function letterGuess(letter) {
     //so guessing the same letter twice doesn't hurt you
     if (gameRunning === true && guessedLetterBank.indexOf(letter) === -1) {
         guessedLetterBank.push(letter);
-        document.getElementById("guessed-letters").textContent = guessedLetterBank;
-        console.log(guessedLetterBank);
+        document.getElementById("guessed-letters").textContent = "Letters already guessed: " + guessedLetterBank.join(" ");
+        document.getElementById("guesses-left").textContent = "Guesses remaining: " + --guessesLeft;
 
         //to check if guessed letter is in word
         for (var i = 0; i < pickedWord.length; i++) {
@@ -91,6 +95,7 @@ function letterGuess(letter) {
     else {
         if (!gameRunning) {
             alert("Click start to begin");
+            newGame();
         } else {
             alert("You have already used that letter");
         }
@@ -102,7 +107,7 @@ function checkIncorrect(letter) {
     if (
         pickedWordPlaceholderArr.indexOf(letter.toLowerCase()) === -1
         && pickedWordPlaceholderArr.indexOf(letter.toUpperCase()) === -1) {
-        guessesLeft--;
+       // guessesLeft--;
         incorrectLetterBank.push(letter);
         guessedLetters.textContent = incorrectLetterBank.join(' ');
         guessesLeft.textContent = guessesLeft;
@@ -117,6 +122,7 @@ function checkLoss() {
         gameRunning = false;
         losses.textContent = losses;
     }
+    console.log(losses);
     checkWin();
 }
 //checkWin
@@ -125,7 +131,9 @@ function checkWin() {
         wins++;
         gameRunning = false;
         wins.textContent = wins;
+        document.getElementById("wins").innerHTML = "Total Wins: " + wins;
     }
+    console.log(wins);
 }
 //add event listener for newGame button
 // newGameButton.addEventListener('click', newGame);
@@ -139,11 +147,11 @@ function checkWin() {
 //add onkeyup event to trigger letterGuess - keys 65-90 - A-Z
 newGame();
 document.onkeyup = function (event) {
-    console.log(event.key);
+    
    // if (event.keycode >= 65 && event.keycode <= 90) {
         letterGuess(event.key);
-        checkWin();
-        checkLoss();
+        
+       // checkLoss();
    // }
 }
 
