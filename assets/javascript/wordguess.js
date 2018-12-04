@@ -1,24 +1,7 @@
-//create variables for guessing game 
+//create array of variables for user to guess
 var fruit = ["apples", "oranges", "watermelon", "strawberries", "bananas", "blueberries", "kiwi", "guava"];
 
-//cant seem to get underscores to match word chosen
-// var wordLength = wordBank.length;
-// var placeholders = "";
-// for (i = 0; i < wordLength; i++) {
-//     placeholders = placeholders + "_"
-// }
-
-//Computer randomly picks a word
-
-// var randNum = Math.floor(Math.random() * fruit.length);
-// var pickedWord = fruit[randNum];
-// console.log(pickedWord);
-
-//Manipulate the DOM - by element and id
-// document.getElementById('new-game-button').innerHTML = newGameButton;
-// document.getElementById('guessed-letters').innerHTML = guessedLetters; 
-
-//variables
+//create variables for number of wins, loses, guesses left 
 var wins = 0;
 document.getElementById('wins').innerHTML = "Total wins: " + wins;
 var losses = 0;
@@ -27,19 +10,23 @@ var guessesLeft = 9;
 document.getElementById('guesses-left').innerHTML = "Guesses remaining: " + guessesLeft;
 var gameRunning = false;
 var numBlanks = 0;
+
 //empty string
 var pickedWord = '';
+
 //blank arrays/placeholders - to do pushes later
 var pickedWordPlaceholderArr = [];
 var guessedLetterBank = [];
 var guessedLetters = [];
-document.getElementById('guessed-letters').innerHTML = "Letters already guessed: " + guessedLetterBank; 
+
+//to print letters guessed onto the page
+document.getElementById('guessed-letters').innerHTML = "Letters already guessed: " + guessedLetterBank;
 var incorrectLetterBank = [];
 var splitWord = [];
 
 
 //to start a New Game function and to reset
-function newGame() {
+var newGame = function () {
     //true once you click button to start new game
     gameRunning = true;
     guessesLeft = 9;
@@ -49,19 +36,17 @@ function newGame() {
 
     //pick a NEW word
     pickedWord = fruit[Math.floor(Math.random() * fruit.length)];
-  //needs split with empty variable 
-//  var splitWord= pickedWord.split(" ");
-console.log(pickedWord);
+    //needs split with empty variable 
+    //  var splitWord= pickedWord.split(" ");
+    console.log(pickedWord);
 
     // for loop to determine amount of blanks
     for (var i = 0; i < pickedWord.length; i++) {
         pickedWordPlaceholderArr.push("_");
     }
-   
-    console.log(pickedWordPlaceholderArr)
-    document.getElementById('placeholders').innerHTML = pickedWordPlaceholderArr.join(" "); 
+
     //write new game info to DOM
-   // guessesLeft.textContent = guessesLeft;
+    document.getElementById('placeholders').innerHTML = pickedWordPlaceholderArr.join(" ");
     document.getElementById('wins').innerHTML = "Total wins: " + wins;
     document.getElementById('losses').innerHTML = "Total losses: " + losses;
     document.getElementById('guesses-left').innerHTML = "Guesses remaining: " + guessesLeft;
@@ -74,13 +59,14 @@ console.log(pickedWordPlaceholderArr)
 //letterGuess function, takes in the letter you press to see if its in the selected word
 function letterGuess(letter) {
     console.log(letter);
-    //so guessing the same letter twice doesn't hurt you
+
+    //guessing the same letter twice doesn't count against guesses remaining
     if (gameRunning === true && guessedLetterBank.indexOf(letter) === -1) {
         guessedLetterBank.push(letter);
         document.getElementById("guessed-letters").textContent = "Letters already guessed: " + guessedLetterBank.join(" ");
         document.getElementById("guesses-left").textContent = "Guesses remaining: " + --guessesLeft;
 
-        //to check if guessed letter is in word
+        //for loop to verify if guessed letter is in word
         for (var i = 0; i < pickedWord.length; i++) {
             //converting letters to lower case to match actual
             if (pickedWord[i].toLowerCase() === letter.toLowerCase()) {
@@ -88,13 +74,12 @@ function letterGuess(letter) {
                 pickedWordPlaceholderArr[i] = pickedWord[i];
             }
         }
-        console.log(pickedWordPlaceholderArr);
         placeholders.textContent = pickedWordPlaceholderArr.join('');
         checkIncorrect(letter);
     }
     else {
         if (!gameRunning) {
-            alert("Click start to begin");
+            // alert("Click here to play again!");
             newGame();
         } else {
             alert("You have already used that letter");
@@ -107,7 +92,8 @@ function checkIncorrect(letter) {
     if (
         pickedWordPlaceholderArr.indexOf(letter.toLowerCase()) === -1
         && pickedWordPlaceholderArr.indexOf(letter.toUpperCase()) === -1) {
-       // guessesLeft--;
+
+        //push incorrect guessed letter to guessed letter bank
         incorrectLetterBank.push(letter);
         guessedLetters.textContent = incorrectLetterBank.join(' ');
         guessesLeft.textContent = guessesLeft;
@@ -115,44 +101,36 @@ function checkIncorrect(letter) {
     checkLoss();
 }
 
-//define check loss function
+//loss function
 function checkLoss() {
+    //need game to reset once guesses remaining equals zero**
     if (guessesLeft === 0) {
         losses++;
         gameRunning = false;
         losses.textContent = losses;
+        alert("You lost this time - try again");
+//need game to reset once a loss is acheived**
     }
-    console.log(losses);
     checkWin();
 }
-//checkWin
+//check Win
 function checkWin() {
     if (pickedWord.toLowerCase() === pickedWordPlaceholderArr.join('').toLowerCase()) {
         wins++;
         gameRunning = false;
         wins.textContent = wins;
         document.getElementById("wins").innerHTML = "Total Wins: " + wins;
+       //need game to reset once a win is acheived**
+        // newGame();
     }
-    console.log(wins);
 }
-//add event listener for newGame button
-// newGameButton.addEventListener('click', newGame);
 
-// var el = document.getElementById('click');
-// console.log(el);
-// if (el) {
-//     el.newGameButton.addEventListener('click', newGame);
-// }
-
-//add onkeyup event to trigger letterGuess - keys 65-90 - A-Z
+//starts new game
 newGame();
 document.onkeyup = function (event) {
-    
-   // if (event.keycode >= 65 && event.keycode <= 90) {
-        letterGuess(event.key);
-        
-       // checkLoss();
-   // }
+    letterGuess(event.key);
 }
+
+
 
 
